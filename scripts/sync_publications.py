@@ -44,9 +44,17 @@ def publication_from_work(work: dict) -> dict:
       url = f"https://doi.org/{ext_value}"
       break
 
+  contributors = work.get("contributors", {}).get("contributor", [])
+  author_names = [
+    c.get("credit-name", {}).get("value")
+    for c in contributors
+    if c.get("credit-name", {}).get("value")
+  ]
+  authors = ", ".join(author_names) if author_names else "Alfonso Cannavale"
+
   return {
     "title": title or "Untitled",
-    "authors": ", ".join([(c.get("credit-name") or {}).get("value") for c in (work.get("contributors") or {}).get("contributor", []) if (c.get("credit-name") or {}).get("value")]) or "Alfonso Cannavale",
+    "authors": authors,
     "venue": journal or "",
     "year": int(year) if year and str(year).isdigit() else None,
     "type": work_type,
