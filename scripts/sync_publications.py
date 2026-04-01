@@ -73,17 +73,21 @@ def main() -> None:
   summary = fetch_json(summary_url)
 
   groups = summary.get("group", [])
-  works = []
+  put_codes = []
   for group in groups:
     summaries = group.get("work-summary", [])
-    if not summaries:
-      continue
-    put_code = summaries[0].get("put-code")
-    if not put_code:
-      continue
-    detail_url = f"https://pub.orcid.org/v3.0/{orcid}/work/{put_code}"
-    work = fetch_json(detail_url)
-    works.append(publication_from_work(work))
+    if summaries and summaries[0].get("put-code"):
+      put_codes.append(str(summaries[0].get("put-code")))
+
+  works = []
+  # Fetch in batches of 50 (ORCID API limit for bulk fetch)
+  for i in range(0, len(put_codes), 50):
+    batch = ",".join(put_codes[i : i + 50])
+    batch_url = f"https://pub.orcid.org/v3.0/{orcid}/works/{batch}"
+    batch_data = fetch_json(batch_url)
+    for bulk_item in batch_data.get("bulk", []):
+      if work := bulk_item.get("work"):
+        works.append(publication_from_work(work))
 
   works = [w for w in works if w.get("title")]
   works.sort(key=lambda item: item.get("year") or 0, reverse=True)
