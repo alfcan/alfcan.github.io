@@ -31,7 +31,7 @@ def publication_from_work(work: dict) -> dict:
     .get("year", {})
     .get("value")
   )
-  work_type = work.get("type", "").replace("-", " ").title()
+  work_type = (work.get("type") or "").replace("-", " ").title()
 
   external_ids = work.get("external-ids", {}).get("external-id", [])
   doi = ""
