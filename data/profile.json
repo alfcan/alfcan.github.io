@@ -1,0 +1,50 @@
+{
+  "name": "Alfonso Cannavale",
+  "tagline": "PhD Student at SeSaLab",
+  "affiliation": "University of Salerno",
+  "researchTrack": "PhD in Computer Science (Internet of Things and Smart Technologies)",
+  "bio": "I am a PhD student at SeSaLab, University of Salerno. My early research explored quality assurance challenges in ML and AI systems, with a strong focus on testing strategies and reliability. I am currently concentrating on Agentic AI, investigating methods, tools, and empirical evidence to engineer dependable AI agents in real-world software ecosystems.",
+  "email": "acannavale@unisa.it",
+  "website": "https://alfonsocannavale.it",
+  "researchInterests": [
+    "Agentic AI engineering and evaluation",
+    "Testing and quality assurance for AI/ML systems",
+    "Empirical software engineering for intelligent systems",
+    "Software evolution and maintainability in AI-enabled applications"
+  ],
+  "supervisors": [
+    {
+      "name": "Prof. Fabio Palomba",
+      "url": "https://fpalomba.github.io/"
+    },
+    {
+      "name": "Prof. Andrea De Lucia",
+      "url": "https://scholar.google.com/citations?user=iyx0u6kAAAAJ"
+    }
+  ],
+  "links": [
+    {
+      "label": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=DbUDUT8AAAAJ"
+    },
+    {
+      "label": "ORCID",
+      "url": "https://orcid.org/0009-0002-0209-5974"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/alfcan"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/alfonso-cannavale/"
+    },
+    {
+      "label": "SeSaLab",
+      "url": "https://sesalabunisa.github.io/en/index.html"
+    }
+  ],
+  "students": [],
+  "projects": [],
+  "teaching": []
+}

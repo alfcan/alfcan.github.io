@@ -1,49 +1,107 @@
-<!DOCTYPE html>
-<html lang="it">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[Il tuo nome] – Pagina personale</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 40px;
-        background: #fafafa;
-        color: #333;
-      }
-      .container {
-        max-width: 800px;
-        margin: auto;
-      }
-      h1 {
-        font-size: 42px;
-        margin-bottom: 10px;
-      }
-      p {
-        font-size: 18px;
-        line-height: 1.6;
-      }
-      a {
-        color: #007acc;
-        text-decoration: none;
-      }
-    </style>
+    <title>Alfonso Cannavale | PhD Student</title>
+    <meta name="description" content="Personal academic website of Alfonso Cannavale, PhD Student at SeSaLab, University of Salerno." />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="Alfonso Cannavale | PhD Student" />
+    <meta property="og:description" content="Research in Agentic AI and testing for AI/ML systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://alfonsocannavale.it" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Ciao, sono [Il tuo nome]</h1>
-      <p>
-        Questa è la mia pagina personale. A breve troverai progetti, articoli,
-        contatti e molto altro.
-      </p>
-      <p>
-        GitHub:
-        <a href="https://github.com/[username]" target="_blank"
-          >github.com/[username]</a
-        ><br />
-        Email: <a href="mailto:email@dominio.com">email@dominio.com</a>
-      </p>
-    </div>
+    <header class="topbar">
+      <a href="#home" class="brand" id="brand-name">Alfonso Cannavale</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#research">Research Interests</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#cv">CV</a>
+        <a href="#students">Students</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+    </header>
+
+    <main id="home" class="layout">
+      <section class="hero card">
+        <div class="hero-content">
+          <p class="eyebrow">PhD Student at SeSaLab</p>
+          <h1 id="hero-name">Alfonso Cannavale</h1>
+          <p id="hero-tagline" class="tagline">PhD Student at SeSaLab</p>
+          <p id="hero-bio" class="bio"></p>
+          <div class="hero-links" id="hero-links"></div>
+        </div>
+        <div class="hero-photo-wrap">
+          <img id="profile-photo" src="assets/profile-placeholder.svg" alt="Profile photo placeholder" />
+          <p class="photo-note">Replace <code>assets/profile-placeholder.svg</code> with your profile picture.</p>
+        </div>
+      </section>
+
+      <section id="about" class="card">
+        <h2>About</h2>
+        <p id="about-text"></p>
+        <p class="muted">Research track: <span id="research-track"></span></p>
+        <p class="muted">Supervisors: <span id="supervisors"></span></p>
+      </section>
+
+      <section id="research" class="card">
+        <h2>Research Interests</h2>
+        <ul id="research-list" class="pill-list"></ul>
+      </section>
+
+      <section id="publications" class="card">
+        <div class="section-head">
+          <h2>Publications</h2>
+          <a id="scholar-link" target="_blank" rel="noreferrer">View full list on Google Scholar</a>
+        </div>
+        <p class="muted" id="pub-sync-note">Publications are loaded from <code>data/publications.json</code>.</p>
+        <div id="publications-grid" class="pub-grid"></div>
+      </section>
+
+      <section id="projects" class="card">
+        <h2>Projects</h2>
+        <p class="muted">Add projects in <code>data/profile.json</code> under <code>projects</code>.</p>
+        <ul id="projects-list"></ul>
+      </section>
+
+      <section id="teaching" class="card">
+        <h2>Teaching</h2>
+        <p class="muted">Add teaching activities in <code>data/profile.json</code> under <code>teaching</code>.</p>
+        <ul id="teaching-list"></ul>
+      </section>
+
+      <section id="cv" class="card">
+        <h2>CV</h2>
+        <p>
+          I do not currently provide a downloadable CV on this page.
+          For a complete and updated academic record, please refer to my publication profiles
+          and contact me directly.
+        </p>
+      </section>
+
+      <section id="students" class="card">
+        <h2>Students</h2>
+        <p class="muted">Add supervised students in <code>data/profile.json</code> under <code>students</code>.</p>
+        <ul id="students-list"></ul>
+      </section>
+
+      <section id="contact" class="card">
+        <h2>Contact</h2>
+        <p>Feel free to reach out for collaborations, research discussions, or project ideas.</p>
+        <p><a id="email-link"></a></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> <span id="footer-name">Alfonso Cannavale</span>. Built for GitHub Pages.</p>
+    </footer>
+
+    <script src="assets/js/main.js" type="module"></script>
   </body>
 </html>
