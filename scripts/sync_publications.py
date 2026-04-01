@@ -46,7 +46,7 @@ def publication_from_work(work: dict) -> dict:
 
   return {
     "title": title or "Untitled",
-    "authors": "Alfonso Cannavale et al.",
+    "authors": ", ".join([(c.get("credit-name") or {}).get("value") for c in (work.get("contributors") or {}).get("contributor", []) if (c.get("credit-name") or {}).get("value")]) or "Alfonso Cannavale",
     "venue": journal or "",
     "year": int(year) if year and str(year).isdigit() else None,
     "type": work_type,
