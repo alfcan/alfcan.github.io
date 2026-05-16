@@ -1,0 +1,16 @@
+[
+  {
+    "type": "seminar",
+    "title": "Guest Lecture — Testing Large Language Model (LLM) Applications",
+    "course": "Software Engineering for AI",
+    "role": "Guest Lecturer",
+    "institution": "University of Salerno",
+    "department": "Department of Computer Science",
+    "program": "Master's in Computer Science",
+    "academicYear": "2025/2026",
+    "semester": "",
+    "hours": 2,
+    "description": "Seminar covering the challenges and strategies for testing LLM-based applications. The lecture explores the non-deterministic nature of LLMs, testing methods like prompt testing and metamorphic testing, verification approaches including evaluation benchmarks and LLM-as-a-Judge, and security testing focusing on jailbreaking and prompt injection defenses.",
+    "url": ""
+  }
+]

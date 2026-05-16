@@ -10,6 +10,9 @@
     <meta property="og:description" content="Research in Agentic AI and testing for AI/ML systems." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://alfonsocannavale.it" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
@@ -22,10 +25,10 @@
         <a href="#projects">Projects</a>
         <a href="#teaching">Teaching</a>
         <a href="#cv">CV</a>
-        <a href="#students">Students</a>
+        <a href="#students">Supervision</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+      <button type="button" id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
     </header>
 
     <main id="home" class="layout">
@@ -38,8 +41,8 @@
           <div class="hero-links" id="hero-links"></div>
         </div>
         <div class="hero-photo-wrap">
-          <img id="profile-photo" src="assets/profile-placeholder.svg" alt="Profile photo placeholder" />
-          <p class="photo-note">Replace <code>assets/profile-placeholder.svg</code> with your profile picture.</p>
+          <div class="photo-glow"></div>
+          <img id="profile-photo" src="assets/foto_accademica.jpg" alt="Profile placeholder" />
         </div>
       </section>
 
@@ -57,23 +60,34 @@
 
       <section id="publications" class="card">
         <div class="section-head">
-          <h2>Publications</h2>
-          <a id="scholar-link" target="_blank" rel="noreferrer">View full list on Google Scholar</a>
+          <div class="head-left">
+            <h2>Publications</h2>
+            <div id="pub-filters" class="pub-filters">
+              <button type="button" class="filter-btn active" data-filter="all">All</button>
+              <button type="button" class="filter-btn" data-filter="journal">Journals</button>
+              <button type="button" class="filter-btn" data-filter="conference">Conferences</button>
+              <button type="button" class="filter-btn" data-filter="book">Book Chapters</button>
+              <button type="button" class="filter-btn" data-filter="other">Preprints & Other</button>
+            </div>
+          </div>
+          <a id="scholar-link" target="_blank" rel="noreferrer" class="view-all-link">Google Scholar <span class="arrow">→</span></a>
         </div>
-        <p class="muted" id="pub-sync-note">Publications are loaded from <code>data/publications.json</code>.</p>
         <div id="publications-grid" class="pub-grid"></div>
       </section>
 
       <section id="projects" class="card">
         <h2>Projects</h2>
-        <p class="muted">Add projects in <code>data/profile.json</code> under <code>projects</code>.</p>
         <ul id="projects-list"></ul>
       </section>
 
       <section id="teaching" class="card">
-        <h2>Teaching</h2>
-        <p class="muted">Add teaching activities in <code>data/profile.json</code> under <code>teaching</code>.</p>
-        <ul id="teaching-list"></ul>
+        <div class="section-head">
+          <div class="head-left">
+            <h2>Teaching</h2>
+            <p class="section-intro">Courses, lab sessions, seminars, and other academic teaching activities.</p>
+          </div>
+        </div>
+        <div id="teaching-content"></div>
       </section>
 
       <section id="cv" class="card">
@@ -86,15 +100,19 @@
       </section>
 
       <section id="students" class="card">
-        <h2>Students</h2>
-        <p class="muted">Add supervised students in <code>data/profile.json</code> under <code>students</code>.</p>
-        <ul id="students-list"></ul>
+        <div class="section-head">
+          <div class="head-left">
+            <h2>Student Supervision</h2>
+            <p class="section-intro">Undergraduate and graduate students I supervise or co-supervise for their thesis research.</p>
+          </div>
+        </div>
+        <div id="students-content"></div>
       </section>
 
       <section id="contact" class="card">
         <h2>Contact</h2>
         <p>Feel free to reach out for collaborations, research discussions, or project ideas.</p>
-        <p><a id="email-link"></a></p>
+        <p><a id="email-link" aria-label="Send an email to Alfonso"></a></p>
       </section>
     </main>
 

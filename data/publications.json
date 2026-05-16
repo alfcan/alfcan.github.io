@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "title": "The Ground Truth Effect: Investigating SZZ Variants in\u00a0Just-in-Time Vulnerability Prediction",
+    "authors": "Alfonso Cannavale, Emanuele Iannone, Gianluca Di Lillo, Fabio Palomba, Andrea De Lucia",
+    "venue": "",
+    "year": 2026,
+    "type": "Book Chapter",
+    "category": "book",
+    "doi": "10.1007/978-3-032-04207-1_21",
+    "url": "https://doi.org/10.1007/978-3-032-04207-1_21"
+  },
+  {
+    "title": "Fairness set and forgotten: Mining fairness toolkit usage in open-source machine learning projects",
+    "authors": "Alfonso Cannavale, Gianmario Voria, Antonio Scognamiglio, Giammaria Giordano, Gemma Catolino, Fabio Palomba",
+    "venue": "Information and Software Technology",
+    "year": 2026,
+    "type": "Journal Article",
+    "category": "journal",
+    "doi": "10.1016/j.infsof.2025.107957",
+    "url": "https://doi.org/10.1016/j.infsof.2025.107957"
+  },
+  {
+    "title": "Understanding Machine Learning testing in practice",
+    "authors": "Alfonso Cannavale, Valeria Pontillo, Andrea De Lucia, Fabio Palomba",
+    "venue": "Journal of Systems and Software",
+    "year": 2026,
+    "type": "Journal Article",
+    "category": "journal",
+    "doi": "10.1016/j.jss.2026.112925",
+    "url": "https://doi.org/10.1016/j.jss.2026.112925"
+  },
+  {
+    "title": "<b>Replication Package: Understanding Machine Learning Testing in Practice</b>",
+    "authors": "Alfonso Cannavale, Valeria Pontillo, Fabio Palomba, Andrea De Lucia",
+    "venue": "",
+    "year": 2026,
+    "type": "Journal Article",
+    "category": "journal",
+    "doi": "10.6084/m9.figshare.31076047",
+    "url": "https://doi.org/10.6084/m9.figshare.31076047"
+  },
+  {
+    "title": "Assessing Fairness Fragility in ML-Enabled Systems via Mutation-Based Dataset Stress Testing",
+    "authors": "Alfonso Cannavale, Gianmario Voria, Giordano anon, Claudio Di Sipio, Antinisca Di Marco, Davide Di Ruscio, Gemma Catolino, Fabio Palomba",
+    "venue": "",
+    "year": 2026,
+    "type": "Other (Preprint/Misc)",
+    "category": "other",
+    "doi": "10.2139/ssrn.6731297",
+    "url": "https://doi.org/10.2139/ssrn.6731297"
+  },
+  {
+    "title": "Appendix for \"The Ground Truth Effect - SZZ variations\" paper",
+    "authors": "Alfonso Cannavale, Emanuele Iannone, Andrea De Lucia, Fabio Palomba",
+    "venue": "",
+    "year": 2025,
+    "type": "Other (Preprint/Misc)",
+    "category": "other",
+    "doi": "10.6084/m9.figshare.28788857",
+    "url": "https://doi.org/10.6084/m9.figshare.28788857"
+  },
+  {
+    "title": "A Large-Scale Empirical Investigation Into Cross-Project Flaky Test Prediction",
+    "authors": "Angelo Afeltra, Alfonso Cannavale, Fabiano Pecorelli, Valeria Pontillo, Fabio Palomba",
+    "venue": "IEEE Access",
+    "year": 2024,
+    "type": "Journal Article",
+    "category": "journal",
+    "doi": "10.1109/ACCESS.2024.3458184",
+    "url": "https://doi.org/10.1109/ACCESS.2024.3458184"
+  }
+]
