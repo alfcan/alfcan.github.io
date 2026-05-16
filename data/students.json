@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Giuseppe Sabetta",
+    "degree": "bachelor",
+    "topic": "Support for defining security requirements using LLM and RAG",
+    "status": "completed",
+    "academicYear": "2024/2025",
+    "institution": "University of Salerno",
+    "coSupervisors": [
+      { "name": "Prof. Andrea De Lucia", "url": "" },
+      { "name": "Dott. Alfonso Cannavale", "url": "" }
+    ],
+    "description": "Development and evaluation of a system based on Retrieval-Augmented Generation (RAG) and Large Language Models (LLM) to automate the generation and formalization of traceable security requirements starting from a natural language Problem Statement, integrating OWASP guidelines and cheat sheets[cite: 54, 233, 269].",
+    "thesisUrl": "",
+    "grade": null
+  },
+  {
+    "name": "Giovanni Scorziello",
+    "degree": "master",
+    "topic": "Prompt Syntax Tree: A Formal Representation for the Analysis and Automatic Decompositions of LLM Prompts",
+    "status": "completed",
+    "academicYear": "2024/2025",
+    "institution": "University of Salerno",
+    "coSupervisors": [
+      { "name": "Prof. Fabio Palomba", "url": "" },
+      { "name": "Dott. Alfonso Cannavale", "url": "" }
+    ],
+    "description": "Proposal and formalization of the Prompt Syntax Tree (PST), a hierarchical data structure inspired by compiler theory (AST) to decompose prompts into addressable semantic units[cite: 1201, 1257]. The work includes the curation of an annotated dataset and the fine-tuning of a Llama-3-8B language model for automatic prompt parsing[cite: 1204, 1263].",
+    "thesisUrl": "",
+    "grade": null
+  }
+]
