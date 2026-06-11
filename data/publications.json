@@ -50,6 +50,17 @@
     "url": "https://doi.org/10.2139/ssrn.6731297"
   },
   {
+    "title": "Smarter, but Not Safer: An Empirical Analysis of the Functional-Security Gap in Evolving LLMs",
+    "authors": "Alfonso Cannavale, Gilberto Recupito, Coen De Roover, Fabio Palomba, Andrea De Lucia",
+    "venue": "2026 IEEE International Conference on Software Maintenance and Evolution (ICSME)",
+    "year": 2026,
+    "type": "Conference Paper",
+    "category": "conference",
+    "url": "",
+    "pdf": "assets/pdf/ICSME___Evolution_of_LLMs_func_vs_sec.pdf",
+    "manual": true
+  },
+  {
     "title": "Appendix for \"The Ground Truth Effect - SZZ variations\" paper",
     "authors": "Alfonso Cannavale, Emanuele Iannone, Andrea De Lucia, Fabio Palomba",
     "venue": "",
