@@ -358,6 +358,8 @@ const init = async () => {
     renderPublications(publications);
   } catch (error) {
     console.error('Failed to load publications:', error);
+    const pubSection = document.getElementById('publications');
+    if (pubSection) pubSection.style.display = 'block';
     const pubGrid = document.getElementById('publications-grid');
     if (pubGrid) {
       pubGrid.innerHTML = `
