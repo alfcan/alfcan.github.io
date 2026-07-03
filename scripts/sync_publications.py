@@ -4,6 +4,10 @@
 from __future__ import annotations
 
 import json
+import time
+import socket
+import urllib.error
+import http.client
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -17,26 +21,62 @@ import re
 from collections import defaultdict
 
 
+def strip_html_tags(text: str) -> str:
+    """Strip HTML tags (e.g. <b>, </i>) from strings."""
+    if not text:
+        return ""
+    return re.sub(r'<[^>]*>', '', text)
+
+
 def normalize_title(title: str) -> str:
-    """Normalize title for comparison by removing special characters and extra spaces."""
+    """Normalize title for comparison by removing HTML tags, special characters, and extra spaces."""
     if not title:
         return ""
-    # Lowercase, remove non-alphanumeric, and squash whitespaces
-    return re.sub(r'[^a-z0-9]', '', title.lower())
+    # Strip HTML tags first, then lowercase, remove non-alphanumeric, and squash whitespaces
+    clean_title = strip_html_tags(title)
+    return re.sub(r'[^a-z0-9]', '', clean_title.lower())
 
 
-def fetch_json(url: str) -> dict:
+def fetch_json(url: str, max_retries: int = 5, backoff_factor: float = 2.0) -> dict:
     req = Request(url, headers={"Accept": "application/json", "User-Agent": "alfcan-github-pages"})
-    with urlopen(req, timeout=20) as response:
-        return json.loads(response.read().decode("utf-8"))
+    last_err = None
+    delay = 1.5
+    for attempt in range(1, max_retries + 1):
+        try:
+            with urlopen(req, timeout=20) as response:
+                if response.status == 200:
+                    return json.loads(response.read().decode("utf-8"))
+                else:
+                    raise urllib.error.HTTPError(
+                        url, response.status, f"HTTP Error {response.status}", response.headers, None
+                    )
+        except urllib.error.HTTPError as e:
+            last_err = e
+            if e.code in [400, 401, 403, 404]:
+                print(f"HTTP {e.code} error fetching {url}. Non-retryable. Aborting.")
+                raise
+            print(f"HTTP {e.code} on attempt {attempt}/{max_retries} for {url}. Retrying in {delay:.1f}s...")
+        except (urllib.error.URLError, http.client.HTTPException, socket.timeout, ConnectionError) as e:
+            last_err = e
+            print(f"Network error '{e}' on attempt {attempt}/{max_retries} for {url}. Retrying in {delay:.1f}s...")
+        
+        if attempt < max_retries:
+            time.sleep(delay)
+            delay *= backoff_factor
+        
+    raise IOError(f"Failed to fetch {url} after {max_retries} attempts. Last error: {last_err}")
 
 
 def publication_from_work(work: dict) -> dict:
     title_info = work.get("title") or {}
     title = (title_info.get("title") or {}).get("value")
+    if title:
+        title = strip_html_tags(title)
 
     journal_info = work.get("journal-title") or {}
     journal = journal_info.get("value")
+    if journal:
+        journal = strip_html_tags(journal)
 
     pub_date = work.get("publication-date") or {}
     year = (pub_date.get("year") or {}).get("value")
@@ -110,23 +150,38 @@ def main() -> None:
     manual_works = [w for w in existing_works if w.get("manual") is True]
 
     summary_url = f"https://pub.orcid.org/v3.0/{orcid}/works"
-    summary = fetch_json(summary_url)
+    try:
+        summary = fetch_json(summary_url)
+    except Exception as e:
+        raise SystemExit(f"Failed to fetch publication summary from ORCID: {e}")
 
-    groups = summary.get("group", [])
+    groups = summary.get("group") or []
     put_codes = []
     for group in groups:
-        summaries = group.get("work-summary", [])
+        summaries = group.get("work-summary") or []
         if summaries and summaries[0].get("put-code"):
             put_codes.append(str(summaries[0].get("put-code")))
+
+    if not put_codes:
+        print("Warning: No publications found on ORCID. Skipping sync to preserve existing publications.")
+        return
 
     raw_works = []
     for i in range(0, len(put_codes), 50):
         batch = ",".join(put_codes[i : i + 50])
         batch_url = f"https://pub.orcid.org/v3.0/{orcid}/works/{batch}"
-        batch_data = fetch_json(batch_url)
-        for bulk_item in batch_data.get("bulk", []):
+        try:
+            batch_data = fetch_json(batch_url)
+        except Exception as e:
+            raise SystemExit(f"Failed to fetch batch {i//50 + 1} from ORCID: {e}")
+            
+        for bulk_item in batch_data.get("bulk") or []:
+            if not isinstance(bulk_item, dict):
+                continue
             if work := bulk_item.get("work"):
                 raw_works.append(publication_from_work(work))
+            elif err := bulk_item.get("error"):
+                print(f"Warning: ORCID returned an error for a work in batch: {err}")
 
     # Deduplication logic
     # Group by normalized title
@@ -137,6 +192,13 @@ def main() -> None:
 
     final_works = []
     for norm_title, variants in title_groups.items():
+        # If there is a manual entry in the existing publications, prefer that!
+        if norm_title in existing_map and existing_map[norm_title].get("manual") is True:
+            mw = existing_map[norm_title].copy()
+            mw.pop("normalized_title", None)
+            final_works.append(mw)
+            continue
+
         # Prefer works with DOI, or Journal > Conference > Book Chapter > Other
         variants.sort(key=lambda x: (
             1 if x["doi"] else 0,
@@ -148,7 +210,7 @@ def main() -> None:
         ), reverse=True)
         # Deep clean and push the best variant
         best = variants[0]
-        del best["normalized_title"]
+        best.pop("normalized_title", None)
         final_works.append(best)
 
     # Preserve custom fields for works fetched from ORCID
@@ -162,7 +224,9 @@ def main() -> None:
     final_norm_titles = {normalize_title(w.get("title", "")) for w in final_works}
     for mw in manual_works:
         if normalize_title(mw.get("title", "")) not in final_norm_titles:
-            final_works.append(mw)
+            mw_copy = mw.copy()
+            mw_copy.pop("normalized_title", None)
+            final_works.append(mw_copy)
 
     final_works.sort(key=lambda item: item.get("year") or 0, reverse=True)
 

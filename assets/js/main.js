@@ -13,6 +13,32 @@ const setUpThemeToggle = () => {
   });
 };
 
+const toggleNavLinkVisibility = (href, show) => {
+  document.querySelectorAll(`nav a[href="${href}"]`).forEach((link) => {
+    link.style.display = show ? 'inline-block' : 'none';
+  });
+};
+
+const setUpMobileMenu = () => {
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuToggle = document.getElementById('menu-toggle');
+  
+  if (!mobileMenu || !menuToggle) return;
+
+  // Toggle active/expanded state attributes
+  mobileMenu.addEventListener('toggle', (event) => {
+    const isOpen = event.newState === 'open';
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close popover drawer when any link is clicked
+  mobileMenu.querySelectorAll('.mobile-nav a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.hidePopover();
+    });
+  });
+};
+
 const fetchJson = async (path) => {
   const response = await fetch(path);
   if (!response.ok) throw new Error(`Cannot load ${path}`);
@@ -45,10 +71,10 @@ const renderProfile = (profile) => {
   document.getElementById('supervisors').innerHTML = supervisors;
 
   const researchSection = document.getElementById('research');
-  const researchLink = document.querySelector('nav a[href="#research"]');
-  if (!profile.researchInterests?.length) {
+  const hasResearch = !!profile.researchInterests?.length;
+  toggleNavLinkVisibility('#research', hasResearch);
+  if (!hasResearch) {
     if (researchSection) researchSection.style.display = 'none';
-    if (researchLink) researchLink.style.display = 'none';
   } else {
     document.getElementById('research-list').innerHTML = profile.researchInterests
       .map((interest) => `<li>${interest}</li>`)
@@ -56,13 +82,12 @@ const renderProfile = (profile) => {
   }
 
   const cvSection = document.getElementById('cv');
-  const cvLink = document.querySelector('nav a[href="#cv"]');
-  if (!profile.cv) {
+  const hasCv = !!profile.cv;
+  toggleNavLinkVisibility('#cv', hasCv);
+  if (!hasCv) {
     if (cvSection) cvSection.style.display = 'none';
-    if (cvLink) cvLink.style.display = 'none';
   } else {
     if (cvSection) cvSection.style.display = 'block';
-    if (cvLink) cvLink.style.display = 'inline-block';
   }
 
   const links = document.getElementById('hero-links');
@@ -76,11 +101,12 @@ const renderProfile = (profile) => {
   }
 
   const projectsSection = document.getElementById('projects');
-  const projectsLink = document.querySelector('nav a[href="#projects"]');
-  if (!profile.projects?.length) {
+  const hasProjects = !!profile.projects?.length;
+  toggleNavLinkVisibility('#projects', hasProjects);
+  if (!hasProjects) {
     if (projectsSection) projectsSection.style.display = 'none';
-    if (projectsLink) projectsLink.style.display = 'none';
   } else {
+    if (projectsSection) projectsSection.style.display = 'block';
     document.getElementById('projects-list').innerHTML = profile.projects
       .map(
         (project) =>
@@ -97,16 +123,15 @@ const renderProfile = (profile) => {
 const renderPublications = (publications) => {
   const grid = document.getElementById('publications-grid');
   const pubSection = document.getElementById('publications');
-  const pubLink = document.querySelector('nav a[href="#publications"]');
+  const hasPublications = !!publications.length;
 
-  if (!publications.length) {
+  toggleNavLinkVisibility('#publications', hasPublications);
+  if (!hasPublications) {
     if (pubSection) pubSection.style.display = 'none';
-    if (pubLink) pubLink.style.display = 'none';
     return;
   }
 
   if (pubSection) pubSection.style.display = 'block';
-  if (pubLink) pubLink.style.display = 'inline-block';
 
   const sorted = [...publications].sort((a, b) => (b.year || 0) - (a.year || 0));
 
@@ -165,16 +190,15 @@ const TEACHING_TYPE_LABELS = {
 
 const renderTeaching = (teaching) => {
   const section = document.getElementById('teaching');
-  const navLink = document.querySelector('nav a[href="#teaching"]');
+  const hasTeaching = !!teaching?.length;
 
-  if (!teaching?.length) {
+  toggleNavLinkVisibility('#teaching', hasTeaching);
+  if (!hasTeaching) {
     if (section) section.style.display = 'none';
-    if (navLink) navLink.style.display = 'none';
     return;
   }
 
   if (section) section.style.display = 'block';
-  if (navLink) navLink.style.display = 'inline-block';
 
   const grouped = teaching.reduce((acc, entry) => {
     const year = entry.academicYear || 'Other';
@@ -222,16 +246,15 @@ const DEGREE_LABELS = {
 
 const renderStudents = (students) => {
   const section = document.getElementById('students');
-  const navLink = document.querySelector('nav a[href="#students"]');
+  const hasStudents = !!students?.length;
 
-  if (!students?.length) {
+  toggleNavLinkVisibility('#students', hasStudents);
+  if (!hasStudents) {
     if (section) section.style.display = 'none';
-    if (navLink) navLink.style.display = 'none';
     return;
   }
 
   if (section) section.style.display = 'block';
-  if (navLink) navLink.style.display = 'inline-block';
 
   const ongoing = students.filter((s) => s.status === 'ongoing');
   const completed = students.filter((s) => s.status === 'completed');
@@ -285,32 +308,103 @@ const renderStudents = (students) => {
     renderGroup(ongoing, 'Current Students') + renderGroup(completed, 'Alumni');
 };
 
+const setUpScrollReveal = () => {
+  const revealElements = document.querySelectorAll('.reveal');
+  
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
+  });
+
+  revealElements.forEach((el) => {
+    observer.observe(el);
+  });
+};
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 const init = async () => {
   setUpThemeToggle();
+  setUpMobileMenu();
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Load profile first as it is core to the entire site layout
+  let profile = null;
   try {
-    const [profile, publications, teaching, students] = await Promise.all([
-      fetchJson('data/profile.json'),
-      fetchJson('data/publications.json'),
-      fetchJsonSafe('data/teaching.json'),
-      fetchJsonSafe('data/students.json'),
-    ]);
+    profile = await fetchJson('data/profile.json');
     renderProfile(profile);
-    renderPublications(publications);
-    renderTeaching(teaching);
-    renderStudents(students);
   } catch (error) {
-    console.error(error);
+    console.error('Failed to load profile:', error);
     document.querySelector('main').insertAdjacentHTML(
       'afterbegin',
-      `<div style="padding:1rem;background:#fee;color:#900;border-radius:8px;margin-bottom:1rem;">
-        Failed to load data. If running locally, serve via <code>npx serve .</code> instead of opening the file directly.
+      `<div class="error-banner">
+        Failed to load profile data. If running locally, serve via <code>npx serve .</code> instead of opening the file directly.
       </div>`
     );
+    setUpScrollReveal();
+    return;
   }
+
+  // Load other sections independently so a failure in one doesn't crash the whole page
+  try {
+    const publications = await fetchJson('data/publications.json');
+    renderPublications(publications);
+  } catch (error) {
+    console.error('Failed to load publications:', error);
+    const pubSection = document.getElementById('publications');
+    if (pubSection) pubSection.style.display = 'block';
+    const pubGrid = document.getElementById('publications-grid');
+    if (pubGrid) {
+      pubGrid.innerHTML = `
+        <div class="error-banner" style="margin-top: 1rem;">
+          Failed to load publications. Please try reloading the page.
+        </div>
+      `;
+    }
+  }
+
+  try {
+    const teaching = await fetchJson('data/teaching.json');
+    renderTeaching(teaching);
+  } catch (error) {
+    console.error('Failed to load teaching:', error);
+    const teachingSection = document.getElementById('teaching');
+    if (teachingSection) teachingSection.style.display = 'block';
+    const teachingContent = document.getElementById('teaching-content');
+    if (teachingContent) {
+      teachingContent.innerHTML = `
+        <div class="error-banner" style="margin-top: 1rem;">
+          Failed to load teaching data. Please try reloading the page.
+        </div>
+      `;
+    }
+  }
+
+  try {
+    const students = await fetchJson('data/students.json');
+    renderStudents(students);
+  } catch (error) {
+    console.error('Failed to load students:', error);
+    const studentsSection = document.getElementById('students');
+    if (studentsSection) studentsSection.style.display = 'block';
+    const studentsContent = document.getElementById('students-content');
+    if (studentsContent) {
+      studentsContent.innerHTML = `
+        <div class="error-banner" style="margin-top: 1rem;">
+          Failed to load student supervision data. Please try reloading the page.
+        </div>
+      `;
+    }
+  }
+
+  setUpScrollReveal();
 };
 
 init();

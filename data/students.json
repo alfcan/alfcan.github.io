@@ -28,5 +28,20 @@
     "description": "Proposal and formalization of the Prompt Syntax Tree (PST), a hierarchical data structure inspired by compiler theory (AST) to decompose prompts into addressable semantic units[cite: 1201, 1257]. The work includes the curation of an annotated dataset and the fine-tuning of a Llama-3-8B language model for automatic prompt parsing[cite: 1204, 1263].",
     "thesisUrl": "",
     "grade": null
+  },
+  {
+    "name": "Aniello Giamundo",
+    "degree": "bachelor",
+    "topic": "Impact of Generative AI on Code Structural Quality: A Pre and Post Adoption Longitudinal Empirical Study on Open Source Repositories",
+    "status": "completed",
+    "academicYear": "2025/2026",
+    "institution": "University of Salerno",
+    "coSupervisors": [
+      { "name": "Prof. Fabio Palomba", "url": "" },
+      { "name": "Dott. Alfonso Cannavale", "url": "" }
+    ],
+    "description": "An empirical, longitudinal study on 90 open-source repositories to analyze the impact of Generative AI (GenAI) tool adoption on code structural quality. By leveraging SonarQube and GitPython metrics in pre/post-adoption windows defined via Self-Admitted GenAI Usage (SAGU), the study highlights statistically significant increases in cyclomatic complexity, cognitive complexity, technical debt, and code smells, with no significant changes to code churn and duplication.",
+    "thesisUrl": "",
+    "grade": null
   }
 ]
