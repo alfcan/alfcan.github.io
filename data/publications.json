@@ -37,7 +37,8 @@
     "type": "Other (Preprint/Misc)",
     "category": "other",
     "doi": "10.6084/m9.figshare.31076047",
-    "url": "https://doi.org/10.6084/m9.figshare.31076047"
+    "url": "https://doi.org/10.6084/m9.figshare.31076047",
+    "manual": true
   },
   {
     "title": "Assessing Fairness Fragility in ML-Enabled Systems via Mutation-Based Dataset Stress Testing",

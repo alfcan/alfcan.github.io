@@ -10,15 +10,18 @@
     <meta property="og:description" content="Research in Agentic AI and testing for AI/ML systems." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://alfonsocannavale.it" />
+    <meta property="og:image" content="https://alfonsocannavale.it/assets/foto_accademica.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <header class="topbar">
       <a href="#home" class="brand" id="brand-name">Alfonso Cannavale</a>
-      <nav>
+      <nav class="desktop-nav">
         <a href="#about">About</a>
         <a href="#research">Research Interests</a>
         <a href="#publications">Publications</a>
@@ -28,13 +31,36 @@
         <a href="#students">Supervision</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button type="button" id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+      <div class="topbar-actions">
+        <button type="button" id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+        <button type="button" id="menu-toggle" aria-label="Open menu" aria-expanded="false" popovertarget="mobile-menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
+        </button>
+      </div>
     </header>
 
+    <div id="mobile-menu" popover class="mobile-menu">
+      <div class="mobile-menu-header">
+        <span class="mobile-menu-title">Navigation</span>
+        <button type="button" id="menu-close" aria-label="Close menu" popovertarget="mobile-menu" popovertargetaction="hide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#about">About</a>
+        <a href="#research">Research Interests</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#cv">CV</a>
+        <a href="#students">Supervision</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
     <main id="home" class="layout">
-      <section class="hero card">
+      <section class="hero card reveal">
         <div class="hero-content">
-          <p class="eyebrow">PhD Student at SeSaLab</p>
           <h1 id="hero-name">Alfonso Cannavale</h1>
           <p id="hero-tagline" class="tagline">PhD Student at SeSaLab</p>
           <p id="hero-bio" class="bio"></p>
@@ -42,23 +68,23 @@
         </div>
         <div class="hero-photo-wrap">
           <div class="photo-glow"></div>
-          <img id="profile-photo" src="assets/foto_accademica.jpg" alt="Profile placeholder" />
+          <img id="profile-photo" src="assets/foto_accademica.jpg" alt="Alfonso Cannavale, PhD student at SeSaLab, University of Salerno" />
         </div>
       </section>
 
-      <section id="about" class="card">
+      <section id="about" class="card reveal">
         <h2>About</h2>
         <p id="about-text"></p>
         <p class="muted">Research track: <span id="research-track"></span></p>
         <p class="muted">Supervisors: <span id="supervisors"></span></p>
       </section>
 
-      <section id="research" class="card">
+      <section id="research" class="card reveal">
         <h2>Research Interests</h2>
         <ul id="research-list" class="pill-list"></ul>
       </section>
 
-      <section id="publications" class="card">
+      <section id="publications" class="card reveal">
         <div class="section-head">
           <div class="head-left">
             <h2>Publications</h2>
@@ -75,12 +101,12 @@
         <div id="publications-grid" class="pub-grid"></div>
       </section>
 
-      <section id="projects" class="card">
+      <section id="projects" class="card reveal">
         <h2>Projects</h2>
         <ul id="projects-list"></ul>
       </section>
 
-      <section id="teaching" class="card">
+      <section id="teaching" class="card reveal">
         <div class="section-head">
           <div class="head-left">
             <h2>Teaching</h2>
@@ -90,7 +116,7 @@
         <div id="teaching-content"></div>
       </section>
 
-      <section id="cv" class="card">
+      <section id="cv" class="card reveal">
         <h2>CV</h2>
         <p>
           I do not currently provide a downloadable CV on this page.
@@ -99,7 +125,7 @@
         </p>
       </section>
 
-      <section id="students" class="card">
+      <section id="students" class="card reveal">
         <div class="section-head">
           <div class="head-left">
             <h2>Student Supervision</h2>
@@ -109,7 +135,7 @@
         <div id="students-content"></div>
       </section>
 
-      <section id="contact" class="card">
+      <section id="contact" class="card reveal">
         <h2>Contact</h2>
         <p>Feel free to reach out for collaborations, research discussions, or project ideas.</p>
         <p><a id="email-link" aria-label="Send an email to Alfonso"></a></p>
@@ -121,5 +147,8 @@
     </footer>
 
     <script src="assets/js/main.js" type="module"></script>
-  </body>
+  <!-- impeccable-live-start -->
+<script src="http://localhost:8400/live.js"></script>
+<!-- impeccable-live-end -->
+</body>
 </html>
