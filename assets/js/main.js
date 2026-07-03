@@ -375,6 +375,8 @@ const init = async () => {
     renderTeaching(teaching);
   } catch (error) {
     console.error('Failed to load teaching:', error);
+    const teachingSection = document.getElementById('teaching');
+    if (teachingSection) teachingSection.style.display = 'block';
     const teachingContent = document.getElementById('teaching-content');
     if (teachingContent) {
       teachingContent.innerHTML = `
@@ -390,6 +392,8 @@ const init = async () => {
     renderStudents(students);
   } catch (error) {
     console.error('Failed to load students:', error);
+    const studentsSection = document.getElementById('students');
+    if (studentsSection) studentsSection.style.display = 'block';
     const studentsContent = document.getElementById('students-content');
     if (studentsContent) {
       studentsContent.innerHTML = `
