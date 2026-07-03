@@ -60,8 +60,9 @@ def fetch_json(url: str, max_retries: int = 5, backoff_factor: float = 2.0) -> d
             last_err = e
             print(f"Network error '{e}' on attempt {attempt}/{max_retries} for {url}. Retrying in {delay:.1f}s...")
         
-        time.sleep(delay)
-        delay *= backoff_factor
+        if attempt < max_retries:
+            time.sleep(delay)
+            delay *= backoff_factor
         
     raise IOError(f"Failed to fetch {url} after {max_retries} attempts. Last error: {last_err}")
 
