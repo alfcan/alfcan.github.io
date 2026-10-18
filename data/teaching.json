@@ -12,5 +12,33 @@
     "hours": 2,
     "description": "Seminar covering the challenges and strategies for testing LLM-based applications. The lecture explores the non-deterministic nature of LLMs, testing methods like prompt testing and metamorphic testing, verification approaches including evaluation benchmarks and LLM-as-a-Judge, and security testing focusing on jailbreaking and prompt injection defenses.",
     "url": ""
+  },
+  {
+    "type": "seminar",
+    "title": "Guest Lecture — UML Modeling, Prototyping and GitHub Fundamentals",
+    "course": "Software Engineering",
+    "role": "Guest Lecturer",
+    "institution": "University of Salerno",
+    "department": "Department of Computer Science",
+    "program": "Bachelor's in Computer Science",
+    "academicYear": "2026/2027",
+    "semester": "",
+    "hours": 2,
+    "description": "Lecture introducing the fundamentals of UML diagram creation with a hands-on demo of Visual Paradigm, the basics of software prototyping with Figma, and the core concepts of version control and collaboration with GitHub.",
+    "url": ""
+  },
+  {
+    "type": "seminar",
+    "title": "Guest Lecture — Software Configuration Management with GitHub",
+    "course": "Software Engineering and Advanced Techniques (ISTA)",
+    "role": "Guest Lecturer",
+    "institution": "University of Salerno",
+    "department": "Department of Computer Science",
+    "program": "Master's in Computer Science",
+    "academicYear": "2026/2027",
+    "semester": "",
+    "hours": 2,
+    "description": "Lecture focused on practical GitHub examples for the software configuration management of software projects.",
+    "url": ""
   }
 ]
