@@ -1,5 +1,16 @@
 [
   {
+    "title": "Engineering Requirements for Generative AI Agents: The BARD Process Theory",
+    "authors": "Alfonso Cannavale, Antonio Della Porta, Gianmario Voria, Gilberto Recupito, Maria Teresa Baldassarre, Gemma Catolino, Fabio Palomba, Andrea De Lucia, Stefano Lambiase",
+    "venue": "49th IEEE/ACM International Conference on Software Engineering (ICSE 2027)",
+    "year": 2027,
+    "type": "Conference Paper",
+    "category": "conference",
+    "url": "",
+    "pdf": "assets/pdf/ICSE_2027-Agent_RE_STGT.pdf",
+    "manual": true
+  },
+  {
     "title": "The Ground Truth Effect: Investigating SZZ Variants in Just-in-Time Vulnerability Prediction",
     "authors": "Alfonso Cannavale, Emanuele Iannone, Gianluca Di Lillo, Fabio Palomba, Andrea De Lucia",
     "venue": "",
