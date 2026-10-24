@@ -45,16 +45,6 @@ const fetchJson = async (path) => {
   return response.json();
 };
 
-const fetchJsonSafe = async (path) => {
-  try {
-    const response = await fetch(path);
-    if (!response.ok) return [];
-    return response.json();
-  } catch {
-    return [];
-  }
-};
-
 const renderProfile = (profile) => {
   document.title = `${profile.name} | PhD Student`;
   document.getElementById('brand-name').textContent = profile.name;
@@ -169,7 +159,9 @@ const renderPublications = (publications) => {
 
   document.querySelectorAll('.filter-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+      document.querySelectorAll('.filter-btn').forEach((b) => {
+        b.classList.remove('active');
+      });
       e.target.classList.add('active');
       renderGrid(e.target.dataset.filter);
     });

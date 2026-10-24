@@ -43,5 +43,20 @@
     "description": "An empirical, longitudinal study on 90 open-source repositories to analyze the impact of Generative AI (GenAI) tool adoption on code structural quality. By leveraging SonarQube and GitPython metrics in pre/post-adoption windows defined via Self-Admitted GenAI Usage (SAGU), the study highlights statistically significant increases in cyclomatic complexity, cognitive complexity, technical debt, and code smells, with no significant changes to code churn and duplication.",
     "thesisUrl": "",
     "grade": null
+  },
+  {
+    "name": "Salvatore Amoroso",
+    "degree": "bachelor",
+    "topic": "Semantic Docstring Perturbations and Security of LLM-Generated Code: An Analysis under Dual-Oracle Evaluation",
+    "status": "completed",
+    "academicYear": "2025/2026",
+    "institution": "University of Salerno",
+    "coSupervisors": [
+      { "name": "Prof. Fabio Palomba", "url": "" },
+      { "name": "Dott. Alfonso Cannavale", "url": "" }
+    ],
+    "description": "A black-box study of whether semantic perturbations of docstrings, which preserve functional intent, induce a code-specialized open LLM to generate functionally correct but insecure code. Three attack techniques with decreasing explicitness (ExampleBased, InverseComment, SemanticPriming) are evaluated with the CWEval dual runtime oracle on 119 tasks, 31 CWE categories and 5 languages. InverseComment makes 34.78% of baseline-secure tasks insecure, ExampleBased 21.74% and SemanticPriming only 2.17%, suggesting that attack effectiveness depends on how directly the perturbation imposes the weakness on the model.",
+    "thesisUrl": "",
+    "grade": null
   }
 ]
