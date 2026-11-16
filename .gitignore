@@ -4,3 +4,8 @@
 DESIGN.md
 PRODUCT.md
 .DS_Store
+
+# Generated CV (local only, never published)
+cv/*
+cv/cv.tex
+cv/cv.pdf

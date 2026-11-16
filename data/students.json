@@ -10,7 +10,7 @@
       { "name": "Prof. Andrea De Lucia", "url": "" },
       { "name": "Dott. Alfonso Cannavale", "url": "" }
     ],
-    "description": "Development and evaluation of a system based on Retrieval-Augmented Generation (RAG) and Large Language Models (LLM) to automate the generation and formalization of traceable security requirements starting from a natural language Problem Statement, integrating OWASP guidelines and cheat sheets[cite: 54, 233, 269].",
+    "description": "Development and evaluation of a system based on Retrieval-Augmented Generation (RAG) and Large Language Models (LLM) to automate the generation and formalization of traceable security requirements starting from a natural language Problem Statement, integrating OWASP guidelines and cheat sheets.",
     "thesisUrl": "",
     "grade": null
   },

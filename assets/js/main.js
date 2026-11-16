@@ -110,7 +110,26 @@ const renderProfile = (profile) => {
   email.textContent = profile.email;
 };
 
-const renderPublications = (publications) => {
+const PDF_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`;
+const ARTIFACT_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`;
+
+const renderPubLinks = (pub) => {
+  const links = [
+    ...(pub.pdf ? [{ label: 'PDF', url: pub.pdf, icon: PDF_ICON }] : []),
+    ...(pub.artifacts || []).map((a) => ({ label: a.label, url: a.url, icon: ARTIFACT_ICON })),
+  ];
+  if (!links.length) return '';
+  return `<div class="pub-links">${links
+    .map(
+      (link) =>
+        `<a href="${link.url}" target="_blank" rel="noreferrer" class="pub-link">${link.icon}${link.label}</a>`
+    )
+    .join('')}</div>`;
+};
+
+const renderPublications = (allPublications) => {
+  // Replication packages and appendices are shown as links on their paper, not as entries.
+  const publications = allPublications.filter((pub) => pub.category !== 'artifact');
   const grid = document.getElementById('publications-grid');
   const pubSection = document.getElementById('publications');
   const hasPublications = !!publications.length;
@@ -143,13 +162,7 @@ const renderPublications = (publications) => {
           <h3>${pub.url ? `<a href="${pub.url}" target="_blank" rel="noreferrer">${pub.title}</a>` : pub.title}</h3>
           <p class="pub-meta">${pub.authors || 'Authors not provided'}</p>
           <p class="pub-meta">${pub.venue || 'Venue not provided'} ${pub.year ? `· ${pub.year}` : ''}</p>
-          ${pub.pdf ? `
-          <div class="pub-links">
-            <a href="${pub.pdf}" target="_blank" rel="noreferrer" class="pub-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              PDF
-            </a>
-          </div>` : ''}
+          ${renderPubLinks(pub)}
         </article>`
       )
       .join('');

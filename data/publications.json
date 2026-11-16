@@ -18,7 +18,13 @@
     "type": "Book Chapter",
     "category": "book",
     "doi": "10.1007/978-3-032-04207-1_21",
-    "url": "https://doi.org/10.1007/978-3-032-04207-1_21"
+    "url": "https://doi.org/10.1007/978-3-032-04207-1_21",
+    "artifacts": [
+      {
+        "label": "Appendix",
+        "url": "https://doi.org/10.6084/m9.figshare.28788857"
+      }
+    ]
   },
   {
     "title": "Fairness set and forgotten: Mining fairness toolkit usage in open-source machine learning projects",
@@ -38,38 +44,23 @@
     "type": "Journal Article",
     "category": "journal",
     "doi": "10.1016/j.jss.2026.112925",
-    "url": "https://doi.org/10.1016/j.jss.2026.112925"
-  },
-  {
-    "title": "Replication Package: Understanding Machine Learning Testing in Practice",
-    "authors": "Alfonso Cannavale, Valeria Pontillo, Fabio Palomba, Andrea De Lucia",
-    "venue": "",
-    "year": 2026,
-    "type": "Other (Preprint/Misc)",
-    "category": "other",
-    "doi": "10.6084/m9.figshare.31076047",
-    "url": "https://doi.org/10.6084/m9.figshare.31076047",
-    "manual": true
+    "url": "https://doi.org/10.1016/j.jss.2026.112925",
+    "artifacts": [
+      {
+        "label": "Replication Package",
+        "url": "https://doi.org/10.6084/m9.figshare.31076047"
+      }
+    ]
   },
   {
     "title": "Assessing Fairness Fragility in ML-Enabled Systems via Mutation-Based Dataset Stress Testing",
-    "authors": "Alfonso Cannavale, Gianmario Voria, Giordano anon, Claudio Di Sipio, Antinisca Di Marco, Davide Di Ruscio, Gemma Catolino, Fabio Palomba",
+    "authors": "Alfonso Cannavale, Gianmario Voria, Giordano d'Aloisio, Claudio Di Sipio, Antinisca Di Marco, Davide Di Ruscio, Gemma Catolino, Fabio Palomba",
     "venue": "",
     "year": 2026,
     "type": "Other (Preprint/Misc)",
     "category": "other",
     "doi": "10.2139/ssrn.6731297",
     "url": "https://doi.org/10.2139/ssrn.6731297"
-  },
-  {
-    "title": "Replication Package: Smarter, but Not Safer: An Empirical Analysis of the Functional-Security Gap in Evolving LLMs",
-    "authors": "Alfonso Cannavale, Gilberto Recupito, Coen De Roover, Fabio Palomba, Andrea De Lucia",
-    "venue": "",
-    "year": 2026,
-    "type": "Other (Preprint/Misc)",
-    "category": "other",
-    "doi": "10.6084/m9.figshare.31412231",
-    "url": "https://doi.org/10.6084/m9.figshare.31412231"
   },
   {
     "title": "Smarter, but Not Safer: An Empirical Analysis of the Functional-Security Gap in Evolving LLMs",
@@ -80,17 +71,13 @@
     "category": "conference",
     "url": "",
     "pdf": "assets/pdf/ICSME___Evolution_of_LLMs_func_vs_sec.pdf",
-    "manual": true
-  },
-  {
-    "title": "Appendix for \"The Ground Truth Effect - SZZ variations\" paper",
-    "authors": "Alfonso Cannavale, Emanuele Iannone, Andrea De Lucia, Fabio Palomba",
-    "venue": "",
-    "year": 2025,
-    "type": "Other (Preprint/Misc)",
-    "category": "other",
-    "doi": "10.6084/m9.figshare.28788857",
-    "url": "https://doi.org/10.6084/m9.figshare.28788857"
+    "manual": true,
+    "artifacts": [
+      {
+        "label": "Replication Package",
+        "url": "https://doi.org/10.6084/m9.figshare.31412231"
+      }
+    ]
   },
   {
     "title": "A Large-Scale Empirical Investigation Into Cross-Project Flaky Test Prediction",

@@ -40,5 +40,19 @@
     "hours": 2,
     "description": "Lecture focused on practical GitHub examples for the software configuration management of software projects.",
     "url": ""
+  },
+  {
+    "type": "seminar",
+    "title": "Guest Lecture — LLMs in Software Engineering Tasks",
+    "course": "Software Engineering",
+    "role": "Guest Lecturer",
+    "institution": "University of Salerno",
+    "department": "Department of Computer Science",
+    "program": "Bachelor's in Computer Science",
+    "academicYear": "2026/2027",
+    "semester": "",
+    "hours": 1,
+    "description": "Lecture on how to use LLMs across software engineering tasks, where they help and where they fail. It covers how LLMs work and how to write an effective prompt, their support along the waterfall phases from requirements to testing, their limitations such as hallucinations, and coding agents with their levels of autonomy. It closes with three live demos on a library system: spotting ambiguous requirements, deriving test cases with category partition, and reviewing a defective method.",
+    "url": ""
   }
 ]

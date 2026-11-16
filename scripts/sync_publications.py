@@ -37,6 +37,69 @@ def normalize_title(title: str) -> str:
     return re.sub(r'[^a-z0-9]', '', clean_title.lower())
 
 
+ARTIFACT_PREFIX = re.compile(
+    r'^\s*(?:online\s+)?(replication\s+package|appendix|supplementary\s+material)s?\b'
+    r'\s*(?:for|of|to)?\s*[:\-–—]?\s*',
+    re.IGNORECASE,
+)
+ARTIFACT_STOPWORDS = {"a", "an", "the", "of", "for", "in", "on", "and", "paper"}
+ARTIFACT_MATCH_THRESHOLD = 0.6
+
+
+def title_tokens(title: str) -> set:
+    words = re.findall(r'[a-z0-9]+', strip_html_tags(title).lower())
+    return {w for w in words if w not in ARTIFACT_STOPWORDS}
+
+
+def artifact_label(work: dict) -> str | None:
+    """Return a label such as 'Replication Package' if the work is a paper artifact, not a paper."""
+    match = ARTIFACT_PREFIX.match(work.get("title") or "")
+    if match:
+        return " ".join(match.group(1).split()).title()
+    if work.get("category") == "artifact":
+        return "Research Artifact"
+    return None
+
+
+def fold_artifacts(works: list) -> list:
+    """Attach replication packages and appendices to the paper they belong to.
+
+    Matched artifacts are removed from the list and stored in the paper's
+    'artifacts' field. Unmatched ones stay, with category 'artifact', which the
+    website and the CV do not list.
+    """
+    papers = []
+    artifacts = []
+    for work in works:
+        label = artifact_label(work)
+        if label:
+            artifacts.append((label, work))
+        else:
+            papers.append(work)
+
+    for label, artifact in artifacts:
+        tokens = title_tokens(ARTIFACT_PREFIX.sub("", artifact.get("title") or ""))
+        best, best_score = None, 0.0
+        for paper in papers:
+            if not tokens:
+                break
+            score = len(tokens & title_tokens(paper.get("title") or "")) / len(tokens)
+            if score > best_score:
+                best, best_score = paper, score
+
+        if best is not None and best_score >= ARTIFACT_MATCH_THRESHOLD and artifact.get("url"):
+            linked = best.setdefault("artifacts", [])
+            if all(a.get("url") != artifact["url"] for a in linked):
+                linked.append({"label": label, "url": artifact["url"]})
+        else:
+            print(f"Warning: no paper found for artifact '{artifact.get('title')}'. Keeping it hidden.")
+            artifact["type"] = label
+            artifact["category"] = "artifact"
+            papers.append(artifact)
+
+    return papers
+
+
 def fetch_json(url: str, max_retries: int = 5, backoff_factor: float = 2.0) -> dict:
     req = Request(url, headers={"Accept": "application/json", "User-Agent": "alfcan-github-pages"})
     last_err = None
@@ -217,8 +280,9 @@ def main() -> None:
     for w in final_works:
         norm = normalize_title(w.get("title", ""))
         if norm in existing_map:
-            if "pdf" in existing_map[norm]:
-                w["pdf"] = existing_map[norm]["pdf"]
+            for field in ("pdf", "artifacts"):
+                if field in existing_map[norm]:
+                    w[field] = existing_map[norm][field]
 
     # Append manual works that are not already in final_works
     final_norm_titles = {normalize_title(w.get("title", "")) for w in final_works}
@@ -228,6 +292,7 @@ def main() -> None:
             mw_copy.pop("normalized_title", None)
             final_works.append(mw_copy)
 
+    final_works = fold_artifacts(final_works)
     final_works.sort(key=lambda item: item.get("year") or 0, reverse=True)
 
     PUBLICATIONS_PATH.write_text(json.dumps(final_works, indent=2, ensure_ascii=False) + "\n")
